@@ -1,1 +1,32 @@
-/root/.config/rofi/config
+! Enabled modi
+rofi.modi:                           window,run,ssh,drun,combi
+! Window opacity
+rofi.opacity:                        100
+! Window width
+rofi.width:                          50
+! Number of lines
+rofi.lines:                          15
+! Number of columns
+rofi.columns:                        1
+! Color scheme for normal row
+rofi.color-normal:                   #263238,#ffffff,#263238,#37474f,#ffffff
+! Color scheme for urgent row
+rofi.color-urgent:                   #263238,#f36c60,#263238,#f36c60,#263238
+! Color scheme for active row
+rofi.color-active:                   #263238,#4dd0e1,#263238,#4dd0e1,#263238
+! Color scheme window
+rofi.color-window:                   #263238,#1c1f26,#37474f
+! Border width
+rofi.bw:                             2
+! Location on screen
+rofi.location:                       0
+! Padding
+rofi.padding:                        10
+! Y-offset relative to location
+rofi.yoffset:                        -100
+! X-offset relative to location
+rofi.xoffset:                        0
+! Always show number of lines
+rofi.fixed-num-lines:                false
+! ssh client to use
+rofi.ssh-client:                     ssh
