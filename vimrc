@@ -3,6 +3,7 @@
 " ~Teal
 
 
+
 "-----------------------------------------------
 "                   Plugins
 "-----------------------------------------------
@@ -64,8 +65,10 @@ call plug#begin('~/.vim/plugged')
         Plug 'fmoralesc/vim-tutor-mode'
         " Plug 'tpope/vim-sensible'
         " Plug 'uguu-org/vim-matrix-screensaver'
+        Plug 'koron/nyancat-vim'
         Plug 'dylanaraps/wal'
         Plug 'godlygeek/tabular'
+        Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -96,10 +99,15 @@ colorscheme wal
     nnoremap <leader>vrc :edit /root/.vimrc<CR>
 "
 "Compiling
-    autocmd FileType c silent! nnoremap <leader>ll :silent !clear<CR>:silent !gcc %<CR>silent !./a.out<CR>:silent !rm a.out<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType c silent! nnoremap <leader>ll :silent !clear<CR>:silent !gcc %<CR>:silent !./a.out<CR>:silent !rm a.out<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType c silent! nnoremap <leader>lt :silent !clear<CR>:!make test<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType cpp silent! nnoremap <leader>ll :silent !clear<CR>:silent !g++ %<CR>:silent !./a.out<CR>:silent !rm a.out<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType cs silent! nnoremap <leader>ll :silent !clear<CR>:silent !mcs *.cs -out:out.exe<CR>:silent !read<CR>:silent !./out.exe<CR>:silent !read<CR>:silent !rm out.exe<CR>:silent !color<CR>:redraw!<CR>
     autocmd FileType python silent! nnoremap <leader>ll :silent !clear<CR>:!python3 %<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType ruby silent! nnoremap <leader>ll :silent !clear<CR>:!ruby %<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType rust silent! nnoremap <leader>ll :silent !clear<CR>:!cargo run<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType rust silent! nnoremap <leader>lt :silent !clear<CR>:!cargo test<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType rust silent! nnoremap <leader>lit :silent !clear<CR>:!cargo test -- --ignored<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType markdown silent! nnoremap <leader>ll :silent !mdview % <CR>:redraw!<CR>
     autocmd FileType java silent! nnoremap <leader>ll :silent !clear<CR>:silent !javac %<CR>:!echo % \| awk -F. '{print $1}' \| xargs java<CR>:silent !read<CR>:redraw!<CR>
     autocmd BufRead *.b silent! nnoremap <leader>ll :silent !clear<CR>:silent !bfi %<CR>:silent !read<CR>:redraw!<CR>
@@ -117,10 +125,11 @@ colorscheme wal
     noremap <leader>e :bw<CR>
 "
 " Learn to stop arrow keys
-    noremap <Up> <NOP>
-    noremap <Down> <NOP>
-    noremap <Left> <NOP>
-    noremap <Right> <NOP>
+    nnoremap <Left> :echoe "Use h"<CR>
+    nnoremap <Right> :echoe "Use l"<CR>
+    nnoremap <Up> :echoe "Use k"<CR>
+    nnoremap <Down> :echoe "Use j"<CR>
+
 "
 "Goyo for miminalist work
     noremap <leader>\ :Goyo<CR>:set nu<CR>:set relativenumber<CR>
@@ -137,16 +146,17 @@ colorscheme wal
     inoremap <C-n> :nohl<CR>
 "
 "Move between splits infinitly easier
-    map <c-j> <c-w>j
-    map <c-k> <c-w>k
-    map <c-l> <c-w>l
-    map <c-h> <c-w>h
+    nnoremap <c-j> <c-w>j
+    nnoremap <c-k> <c-w>k
+    nnoremap <c-l> <c-w>l
+    nnoremap <c-h> <c-w>h
+    set splitbelow
+    set splitright
 "
 "Let K be the opposite of J
     noremap K i<Enter><Esc>
 "
 "Block Indent
-    vnoremap < <gv
     vnoremap > >gv
 "
 "OmniComplete better menu navigation
@@ -184,6 +194,7 @@ let g:ycm_filetype_blacklist = { 'config': 1, 'binary': 1, 'vim': 1 }
 
 "Vim latex
 let g:Tex_DefaultTargetFormat = "pdf"
+let g:Tex_MultipleCompileFormats = "pdf,bib,pdf"
 
 "Function Keys
 set notimeout
@@ -240,48 +251,42 @@ syntax on
 
 
 " Showing line numbers and length
-set number  " show line numbers
+set nu  " show line numbers
+set nuw=6
 set relativenumber
 set tw=79               " width of document (used by gd)
 set nowrap              " don't automatically wrap on load
 set fo-=t               " don't automatically wrap text when typing
-set colorcolumn=120     " Maximum line length
-highlight ColorColumn ctermbg=234
-
+set colorcolumn=128     " Maximum line length
+highlight ColorColumn ctermbg=237
 
 "Warning when line is getting too long
 highlight LineTooLong ctermbg=magenta
 call matchadd('LineTooLong', '\%81v', 100)
 
-
 " Useful settings
 set history=700     "Stores 700 Commands in history"
 set undolevels=700  "Stores lots of undos
+set ruler           "Show cursor at all times
 
 
-" Real programmers don't use TABs but spaces
+" Spaces as tabs ;P
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set smartindent
 
 
-" Make search case insensitive
+" Make searchs better
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+set wrapscan
 
 
 " Disable stupid backup and swap files
 set nobackup
 set nowritebackup
 set noswapfile
-
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
 
 " Settings for Goyo
 let g:goyo_width = 120
@@ -290,12 +295,35 @@ let g:goyo_width = 120
 " Settings for vim-airline
 set laststatus=2
 let g:airline_theme='monochrome'
-let g:airline_section_b = '%{strftime("%c")}'
-let g:airline_section_c = '%{fugitive#statusline()}'
+let g:airline_section_b = '%{strftime("%H:%M")}'
+let g:airline_section_c = ' %m'
+""" Spacer """
+let g:airline_section_x = '%f'
+let g:airline_section_y = '%Y'
+let g:airline_section_z = '%p%% ☰  %l/%L'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#format = 2
 let g:airline_powerline_fonts = 1
 set noshowmode
 
+""" Unicode """
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
 
 "Ignore bad files for fuzzyfinder
 set wildignore+=tags
