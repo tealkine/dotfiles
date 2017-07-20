@@ -1,1 +1,0 @@
-/root/.config/i3/config
