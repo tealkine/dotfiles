@@ -43,6 +43,10 @@ call plug#begin('~/.vim/plugged')
         Plug 'elzr/vim-json'
         Plug 'pangloss/vim-javascript'
         Plug 'rust-lang/rust.vim'
+        Plug 'fsharp/vim-fsharp', {
+            \ 'for': 'fsharp',
+            \ 'do':  'make fsautocomplete',
+            \}
         Plug 'chrisbra/csv.vim'
         Plug 'octol/vim-cpp-enhanced-highlight'
 
@@ -52,6 +56,12 @@ call plug#begin('~/.vim/plugged')
     "Markdown Editing
         Plug 'junegunn/goyo.vim'
         Plug 'amix/vim-zenroom2'
+
+    "Themes
+        Plug 'joshdick/onedark.vim'
+        Plug 'dracula/vim'
+        Plug 'carakan/new-railscasts-theme'
+        Plug 'rakr/vim-two-firewatch'
 
     "Tpope is the man!
         Plug 'tpope/vim-speeddating'
@@ -85,6 +95,7 @@ command! MakeTags !ctags -R .
 set t_Co=256            "256 Color support
 "color jellybeans        "Jellybeans!
 colorscheme wal
+"
 
 "Shortcuts
 "
@@ -99,7 +110,7 @@ colorscheme wal
     nnoremap <leader>vrc :edit /root/.vimrc<CR>
 "
 "Compiling
-    autocmd FileType c silent! nnoremap <leader>ll :silent !clear<CR>:silent !gcc %<CR>:silent !./a.out<CR>:silent !rm a.out<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType c silent! nnoremap <leader>ll :silent !clear<CR>:!make<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType c silent! nnoremap <leader>lt :silent !clear<CR>:!make test<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType cpp silent! nnoremap <leader>ll :silent !clear<CR>:silent !g++ %<CR>:silent !./a.out<CR>:silent !rm a.out<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType cs silent! nnoremap <leader>ll :silent !clear<CR>:silent !mcs *.cs -out:out.exe<CR>:silent !read<CR>:silent !./out.exe<CR>:silent !read<CR>:silent !rm out.exe<CR>:silent !color<CR>:redraw!<CR>
@@ -110,6 +121,7 @@ colorscheme wal
     autocmd FileType rust silent! nnoremap <leader>lit :silent !clear<CR>:!cargo test -- --ignored<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType markdown silent! nnoremap <leader>ll :silent !mdview % <CR>:redraw!<CR>
     autocmd FileType java silent! nnoremap <leader>ll :silent !clear<CR>:silent !javac %<CR>:!echo % \| awk -F. '{print $1}' \| xargs java<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType java silent! nnoremap <leader>lt :silent !clear<CR>:!gradle test<CR>:silent !read<CR>:redraw!<CR>
     autocmd BufRead *.b silent! nnoremap <leader>ll :silent !clear<CR>:silent !bfi %<CR>:silent !read<CR>:redraw!<CR>
 "
 "Buffers
@@ -193,6 +205,7 @@ nmap <leader>= 1z=
 let g:ycm_filetype_blacklist = { 'config': 1, 'binary': 1, 'vim': 1 }
 
 "Vim latex
+let g:Tex_MathMenus = 0
 let g:Tex_DefaultTargetFormat = "pdf"
 let g:Tex_MultipleCompileFormats = "pdf,bib,pdf"
 
@@ -354,10 +367,17 @@ hi NonText ctermfg=250 ctermbg=none
 hi Search ctermfg=red ctermbg=none
 hi MatchParen cterm=none ctermbg=green ctermfg=black
 
+" Italic comments
+set t_ZH=[3m
+set t_ZR=[23m
+hi Comment cterm=italic
+
 
 
 "Troll Command
 "exec 'set colorcolumn=' . join(range(2,200,3), ',')
+"
+"
 
 
 "End Of File

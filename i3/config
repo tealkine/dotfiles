@@ -179,10 +179,10 @@ exec --no-startup-id dropbox start
 exec --no-startup-id compton -GC --backend glx --paint-on-overlay --vsync opengl-swc --glx-no-stencil
 
 #feh
-exec_always --no-startup-id wal -t "/root/Pictures/Wallpaper/shank.jpg"
-bindsym $mod+Shift+w exec --no-startup-id wal -t -i "/root/Pictures/Wallpaper"
-bindsym Shift+Mod1+z exec --no-startup-id wal -t -i "/root/Pictures/Wallpaper/dark-souls-3-artwork-pic.jpg"
-bindsym Shift+Mod1+x exec --no-startup-id wal -t -i "/root/Pictures/Wallpaper/over-the-city.jpg"
+exec_always --no-startup-id feh --bg-scale "/root/Pictures/Wallpaper/shank.jpg"
+bindsym $mod+Shift+w exec --no-startup-id feh --randomize --bg-scale "/root/Pictures/Wallpaper/"
+bindsym Shift+Mod1+z exec --no-startup-id feh --bg-scale "/root/Pictures/Wallpaper/dark-souls-3-artwork-pic.jpg"
+bindsym Shift+Mod1+x exec --no-startup-id feh --bg-scale "/root/Pictures/Wallpaper/over-the-city.jpg"
 
 #Mail
 exec --no-startup-id mail-notification
