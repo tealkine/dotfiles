@@ -216,7 +216,7 @@ bar {
         position top
         workspace_buttons yes
 #        tray_output none
-        font pango:tewi Regular 8
+        font pango:tewi, Fira Mono for Powerline Regular, Icons 8
         colors {
             statusline          $status
             background          $fg

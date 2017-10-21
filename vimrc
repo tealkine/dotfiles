@@ -196,6 +196,7 @@ set autowrite
 
 
 "Spell  Checking
+autocmd FileType mail setlocal spell spelllang=en_au
 autocmd BufRead *.tex,*.md setlocal spell spelllang=en_au
 set spellfile=~/.vim/spell.en.add
 nmap <leader>= 1z=
@@ -243,14 +244,13 @@ autocmd! bufwritepost .vimrc nested source %
 "Stop Gross Paste Bugs
 autocmd! InsertLeave * set nopaste
 
-
 "Save on focus lost
 :au FocusLost * :wa
 
 
 " Better copy & paste
 set pastetoggle=<F2>
-set clipboard=unnamed
+set clipboard^=unnamed
 
 " Show whitespace
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
