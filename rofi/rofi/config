@@ -23,7 +23,7 @@ rofi.location:                       0
 ! Padding
 rofi.padding:                        10
 ! Y-offset relative to location
-rofi.yoffset:                        -120
+rofi.yoffset:                        -100
 ! X-offset relative to location
 rofi.xoffset:                        0
 ! Always show number of lines

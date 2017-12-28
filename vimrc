@@ -11,20 +11,15 @@
 call plug#begin('~/.vim/plugged')
 
     "Syntax better
-    "    Plug 'vim-syntastic/syntastic'
          Plug 'Valloric/YouCompleteMe'
-    "    Plug 'dbakker/vim-lint'
-
-    "For Learning Vim
-        Plug 'wikitopian/hardmode'
-
-    "Compile and run
-        Plug 'xuhdev/SingleCompile'
 
     "Large Projects
         Plug 'majutsushi/tagbar'
         Plug 'scrooloose/nerdtree'
-        Plug 'wincent/Command-T'
+
+    "fzf
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf.vim'
 
     "Code Completion
         "Plug 'Shougo/neocomplete'
@@ -38,16 +33,11 @@ call plug#begin('~/.vim/plugged')
         Plug 'vim-latex/vim-latex'
 
     "Syntax Improvements
-        Plug 'othree/yajs.vim'
         Plug 'plasticboy/vim-markdown'
         Plug 'elzr/vim-json'
-        Plug 'pangloss/vim-javascript'
+        "Plug 'pangloss/vim-javascript'
+        Plug 'othree/yajs.vim'
         Plug 'rust-lang/rust.vim'
-        Plug 'fsharp/vim-fsharp', {
-            \ 'for': 'fsharp',
-            \ 'do':  'make fsautocomplete',
-            \}
-        Plug 'chrisbra/csv.vim'
         Plug 'octol/vim-cpp-enhanced-highlight'
 
     "Bracket Completion
@@ -69,18 +59,15 @@ call plug#begin('~/.vim/plugged')
         Plug 'tpope/vim-fugitive'
         Plug 'tpope/vim-repeat'
         Plug 'tpope/vim-commentary'
+        " Plug 'tpope/vim-sensible'
 
     "Misc
-        "Plug 'neomake/neomake'
-        Plug 'fmoralesc/vim-tutor-mode'
-        " Plug 'tpope/vim-sensible'
-        " Plug 'uguu-org/vim-matrix-screensaver'
-        Plug 'koron/nyancat-vim'
         Plug 'dylanaraps/wal'
         Plug 'godlygeek/tabular'
         Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
+
 
 " Rebind <Leader> key
     let mapleader = ","
@@ -112,7 +99,8 @@ colorscheme wal
 "Compiling
     autocmd FileType c silent! nnoremap <leader>ll :silent !clear<CR>:!make<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType c silent! nnoremap <leader>lt :silent !clear<CR>:!make test<CR>:silent !read<CR>:redraw!<CR>
-    autocmd FileType cpp silent! nnoremap <leader>ll :silent !clear<CR>:silent !g++ %<CR>:silent !./a.out<CR>:silent !rm a.out<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType cpp silent! nnoremap <leader>ll :silent !clear<CR>:!make<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType cpp silent! nnoremap <leader>lt :silent !clear<CR>:!make test<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType cs silent! nnoremap <leader>ll :silent !clear<CR>:silent !mcs *.cs -out:out.exe<CR>:silent !read<CR>:silent !./out.exe<CR>:silent !read<CR>:silent !rm out.exe<CR>:silent !color<CR>:redraw!<CR>
     autocmd FileType python silent! nnoremap <leader>ll :silent !clear<CR>:!python3 %<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType ruby silent! nnoremap <leader>ll :silent !clear<CR>:!ruby %<CR>:silent !read<CR>:redraw!<CR>
@@ -124,6 +112,9 @@ colorscheme wal
     autocmd FileType java silent! nnoremap <leader>lt :silent !clear<CR>:!gradle test<CR>:silent !read<CR>:redraw!<CR>
     autocmd BufRead *.b silent! nnoremap <leader>ll :silent !clear<CR>:silent !bfi %<CR>:silent !read<CR>:redraw!<CR>
 "
+" FZF keybindings
+noremap <leader>f <Esc>:Files<CR>
+
 "Buffers
     nnoremap <leader>bn :bn<CR>
     nnoremap <leader>bp :bp<CR>
