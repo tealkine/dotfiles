@@ -10,8 +10,10 @@
 
 call plug#begin('~/.vim/plugged')
 
+    "Git Gutter
+        Plug 'airblade/vim-gitgutter'
     "Syntax better
-         Plug 'Valloric/YouCompleteMe'
+        Plug 'Valloric/YouCompleteMe'
 
     "Large Projects
         Plug 'majutsushi/tagbar'
@@ -111,9 +113,16 @@ colorscheme wal
     autocmd FileType java silent! nnoremap <leader>ll :silent !clear<CR>:silent !javac %<CR>:!echo % \| awk -F. '{print $1}' \| xargs java<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType java silent! nnoremap <leader>lt :silent !clear<CR>:!gradle test<CR>:silent !read<CR>:redraw!<CR>
     autocmd BufRead *.b silent! nnoremap <leader>ll :silent !clear<CR>:silent !bfi %<CR>:silent !read<CR>:redraw!<CR>
-"
+
 " FZF keybindings
 noremap <leader>f <Esc>:Files<CR>
+noremap <leader>ta <Esc>:Tags<CR>
+
+"Gutter
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
 
 "Buffers
     nnoremap <leader>bn :bn<CR>
