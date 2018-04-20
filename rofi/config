@@ -22,11 +22,10 @@ rofi.bw:                             2
 rofi.location:                       0
 ! Padding
 rofi.padding:                        10
-! Y-offset relative to location
-rofi.yoffset:                        -100
-! X-offset relative to location
-rofi.xoffset:                        0
 ! Always show number of lines
 rofi.fixed-num-lines:                false
 ! ssh client to use
 rofi.ssh-client:                     ssh
+! Hide scrollbar
+rofi.hide-scrollbar:                 true
+rofi.theme:                          /home/ffc/.config/rofi/theme.rasi

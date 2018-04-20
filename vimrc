@@ -1,8 +1,8 @@
 " Custom Vim Configuration
-"
+
 " ~Teal
 
-
+set encoding=utf-8
 
 "-----------------------------------------------
 "                   Plugins
@@ -10,10 +10,15 @@
 
 call plug#begin('~/.vim/plugged')
 
+    "Startify
+        Plug 'mhinz/vim-startify'
+
     "Git Gutter
         Plug 'airblade/vim-gitgutter'
+
     "Syntax better
         Plug 'Valloric/YouCompleteMe'
+        Plug 'w0rp/ale'
 
     "Large Projects
         Plug 'majutsushi/tagbar'
@@ -32,7 +37,8 @@ call plug#begin('~/.vim/plugged')
         Plug 'vim-airline/vim-airline-themes'
 
     "Latex Editing
-        Plug 'vim-latex/vim-latex'
+    "    Plug 'vim-latex/vim-latex'
+        Plug 'lervag/vimtex'
 
     "Syntax Improvements
         Plug 'plasticboy/vim-markdown'
@@ -67,38 +73,37 @@ call plug#begin('~/.vim/plugged')
         Plug 'dylanaraps/wal'
         Plug 'godlygeek/tabular'
         Plug 'christoomey/vim-tmux-navigator'
+        Plug 'morhetz/gruvbox'
+        Plug 'kien/rainbow_parentheses.vim'
 
 call plug#end()
-
 
 " Rebind <Leader> key
     let mapleader = ","
     let maplocalleader = ","
 
 "Commands
-"
+
 "MakeTags
 command! MakeTags !ctags -R .
 
 " Color Scheme Fixes
 set t_Co=256            "256 Color support
+
 "color jellybeans        "Jellybeans!
-colorscheme wal
-"
+"colorscheme vorange
+"colorscheme rupza
+color wal
+
 
 "Shortcuts
-"
-"DEMOS
-    nnoremap <leader>dmp  :silent !cp -n /usr/share/templates/example.py  /tmp/example.py <CR>:silent edit /tmp/example.py <CR>:redraw!<CR>
-    nnoremap <leader>dmc  :silent !cp -n /usr/share/templates/example.cpp /tmp/example.cpp<CR>:silent edit /tmp/example.cpp<CR>:redraw!<CR>
-    nnoremap <leader>dmr  :silent !cp -rn /usr/share/templates/rustdemo /tmp/rustdemo     <CR>:silent edit /tmp/rustdemo/Cargo.toml<CR>:silent edit /tmp/rustdemo/src/main.rs<CR>:redraw!<CR>
-    nnoremap <leader>ndmp :silent !cp /usr/share/templates/example.py  /tmp/example.py    <CR>:silent edit /tmp/example.py <CR>:redraw!<CR>
-    nnoremap <leader>ndmc :silent !cp /usr/share/templates/example.cpp /tmp/example.cpp   <CR>:silent edit /tmp/example.cpp<CR>:redraw!<CR>
-"
+
 "VIMRC edit
     nnoremap <leader>vrc :edit /root/.vimrc<CR>
-"
+
 "Compiling
+augroup compile
+    autocmd!
     autocmd FileType c silent! nnoremap <leader>ll :silent !clear<CR>:!make<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType c silent! nnoremap <leader>lt :silent !clear<CR>:!make test<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType cpp silent! nnoremap <leader>ll :silent !clear<CR>:!make<CR>:silent !read<CR>:redraw!<CR>
@@ -108,55 +113,59 @@ colorscheme wal
     autocmd FileType ruby silent! nnoremap <leader>ll :silent !clear<CR>:!ruby %<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType rust silent! nnoremap <leader>ll :silent !clear<CR>:!cargo run<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType rust silent! nnoremap <leader>lt :silent !clear<CR>:!cargo test<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType rust silent! nnoremap <leader>ld :silent !clear<CR>:!cargo doc --open<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType rust silent! nnoremap <leader>lit :silent !clear<CR>:!cargo test -- --ignored<CR>:silent !read<CR>:redraw!<CR>
-    autocmd FileType markdown silent! nnoremap <leader>ll :silent !mdview % <CR>:redraw!<CR>
-    autocmd FileType java silent! nnoremap <leader>ll :silent !clear<CR>:silent !javac %<CR>:!echo % \| awk -F. '{print $1}' \| xargs java<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType java silent! nnoremap <leader>ll :silent !clear<CR>:!gradle run<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType java silent! nnoremap <leader>lt :silent !clear<CR>:!gradle test<CR>:silent !read<CR>:redraw!<CR>
     autocmd BufRead *.b silent! nnoremap <leader>ll :silent !clear<CR>:silent !bfi %<CR>:silent !read<CR>:redraw!<CR>
+augroup END
 
 " FZF keybindings
-noremap <leader>f <Esc>:Files<CR>
-noremap <leader>ta <Esc>:Tags<CR>
+    noremap <leader>f <Esc>:Files<CR>
+    noremap <leader>ta <Esc>:Tags<CR>
+
+" Startify
+    let g:startify_files_number = 5
 
 "Gutter
-let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '∙'
-let g:gitgutter_sign_removed = '∙'
-let g:gitgutter_sign_modified_removed = '∙'
+    let g:gitgutter_sign_added = '∙'
+    let g:gitgutter_sign_modified = '∙'
+    let g:gitgutter_sign_removed = '∙'
+    let g:gitgutter_sign_modified_removed = '∙'
 
 "Buffers
     nnoremap <leader>bn :bn<CR>
     nnoremap <leader>bp :bp<CR>
     nnoremap <leader>cb :bw<CR>
-"
+
 "Swap semicolon and colon
     noremap ; :
     noremap : ;
-"
+
 "Bind a quit key
     noremap <leader>e :bw<CR>
-"
-" Learn to stop arrow keys
+
+"Learn to stop arrow keys
     nnoremap <Left> :echoe "Use h"<CR>
     nnoremap <Right> :echoe "Use l"<CR>
     nnoremap <Up> :echoe "Use k"<CR>
     nnoremap <Down> :echoe "Use j"<CR>
 
-"
+
 "Goyo for miminalist work
     noremap <leader>\ :Goyo<CR>:set nu<CR>:set relativenumber<CR>
-"
+
 "NerdTree
     noremap <leader>nt <Esc>:NERDTreeToggle<CR>
-"
+
 "TagBar
     noremap <leader>tb <Esc>:TagbarToggle<CR>
-"
+
 " Unhilight search
     noremap  <C-n> :nohl<CR>
     vnoremap <C-n> :nohl<CR>
     inoremap <C-n> :nohl<CR>
-"
+
 "Move between splits infinitly easier
     nnoremap <c-j> <c-w>j
     nnoremap <c-k> <c-w>k
@@ -164,23 +173,23 @@ let g:gitgutter_sign_modified_removed = '∙'
     nnoremap <c-h> <c-w>h
     set splitbelow
     set splitright
-"
+
 "Let K be the opposite of J
     noremap K i<Enter><Esc>
-"
+
 "Block Indent
     vnoremap > >gv
-"
+
 "OmniComplete better menu navigation
     inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
     inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-"
+
 " Learn to stop using BASIC NAVIGATION
 " noremap h <NOP>
 " noremap j <NOP>
 " noremap k <NOP>
 " noremap l <NOP>
-"
+
 "Map sort function to a key
 "       vnoremap <Leader>s :sort<CR>
 
@@ -196,19 +205,45 @@ set autowrite
 
 
 "Spell  Checking
-autocmd FileType mail setlocal spell spelllang=en_au
-autocmd BufRead *.tex,*.md setlocal spell spelllang=en_au
+augroup spellcheck
+    autocmd!
+    autocmd FileType mail setlocal spell spelllang=en_au
+    autocmd BufRead *.tex,*.md setlocal spell spelllang=en_au
+augroup END
 set spellfile=~/.vim/spell.en.add
 nmap <leader>= 1z=
 
 
 "You Complete me fix
 let g:ycm_filetype_blacklist = { 'config': 1, 'binary': 1, 'vim': 1 }
+let g:ycm_rust_src_path = '$HOME/Sources/rust/src'
+
+let g:ale_completion_enabled = 0
+
+
 
 "Vim latex
-let g:Tex_MathMenus = 0
-let g:Tex_DefaultTargetFormat = "pdf"
-let g:Tex_MultipleCompileFormats = "pdf,bib,pdf"
+"let g:Tex_MathMenus = 0
+"let g:Tex_DefaultTargetFormat = "pdf"
+"let g:Tex_MultipleCompileFormats = "pdf,bib,pdf"
+
+let g:vimtex_compiler_latexmk = {
+    \ 'backend' : 'jobs',
+    \ 'background' : 1,
+    \ 'build_dir' : '',
+    \ 'callback' : 0,
+    \ 'continuous' : 1,
+    \ 'executable' : 'latexmk',
+    \ 'options' : [
+    \   '-pdf',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+\}
+
+let g:vimtex_view_method = "zathura"
 
 "Function Keys
 set notimeout
@@ -227,22 +262,18 @@ let g:vim_markdown_folding_disabled=1
 
 " NerdTree Config
 let NERDTreeHijackNetrw=1 "Put Nerdtree into a window
-autocmd FileType nerdtree silent! noremap <buffer> j <down>
-autocmd FileType nerdtree silent! noremap <buffer> k <up>
-autocmd FileType nerdtree silent! map <buffer> h o
-autocmd FileType nerdtree silent! map <buffer> l o
-
 
 " Disable Mouse Support
-autocmd BufEnter * set mouse=
+set mouse=
 
+augroup misc
+    autocmd!
+    " Automatic reloading of .vimrc
+    autocmd! bufwritepost .vimrc nested source %
 
-" Automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc nested source %
-
-
-"Stop Gross Paste Bugs
-autocmd! InsertLeave * set nopaste
+    "Stop Gross Paste Bugs
+    autocmd! InsertLeave * set nopaste
+augroup END
 
 "Save on focus lost
 :au FocusLost * :wa
@@ -278,7 +309,7 @@ highlight LineTooLong ctermbg=magenta
 call matchadd('LineTooLong', '\%81v', 100)
 
 " Useful settings
-set history=700     "Stores 700 Commands in history"
+set history=700     "Stores 700 Commands in history
 set undolevels=700  "Stores lots of undos
 set ruler           "Show cursor at all times
 
@@ -307,10 +338,10 @@ let g:goyo_width = 120
 
 " Settings for vim-airline
 set laststatus=2
-let g:airline_theme='monochrome'
+let g:airline_theme='minimalist'
 let g:airline_section_b = '%{strftime("%H:%M")}'
 let g:airline_section_c = ' %m'
-""" Spacer """
+""" Spacer ""
 let g:airline_section_x = '%f'
 let g:airline_section_y = '%Y'
 let g:airline_section_z = '%p%% ☰  %l/%L'
@@ -320,7 +351,7 @@ let g:airline#extensions#branch#format = 2
 let g:airline_powerline_fonts = 1
 set noshowmode
 
-""" Unicode """
+""" Unicode ""
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -353,9 +384,9 @@ set completeopt=longest,menuone
 function! OmniPopup(action)
     if pumvisible()
         if a:action == 'j'
-            return "\<C-N>"
+            return "\<C-N>
         elseif a:action == 'k'
-            return "\<C-P>"
+            return "\<C-P>
         endif
     endif
     return a:action
@@ -376,8 +407,8 @@ hi Comment cterm=italic
 
 "Troll Command
 "exec 'set colorcolumn=' . join(range(2,200,3), ',')
-"
-"
+
+
 
 
 "End Of File

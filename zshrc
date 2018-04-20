@@ -1,31 +1,32 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=/usr/local/texlive/2016/bin/x86_64-linux:/usr/games:/root/.local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
-export ZSH=/root/.oh-my-zsh
+export ZSH=/home/ffc/.oh-my-zsh
+
+# ls fix
+export QUOTING_STYLE=literal
+
+source ~/Dropbox/Aliases/bash_aliases
+
+#no beeps
+setopt nolist_beep
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="classyTouch"
-#DEFAULT_USER="root"
+
+#fpath += ~/.zfunc
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
-
-#Aliases
-source ~/Dropbox/Bash/bash_aliases
-#No beeps
-setopt nolist_beep
-#VIM FOR THE WIN
-set -o vi
-
-(wal -t -r &)
-
-#RUST
-fpath+=~/.zfunc
-
-#FUCK
-eval $(thefuck --alias fuck)
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -66,10 +67,23 @@ eval $(thefuck --alias fuck)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git debian rust zsh-completions npm nmap cargo python cp django pip rsync colored-man-pages jsontools)
-autoload -U compinit && compinit
+plugins=(
+    git
+    rust
+    zsh-completions
+    npm
+    nmap
+    cargo
+    python
+    cp
+    pip
+    rsync
+    colored-man-pages
+    jsontools
+)
 
 source $ZSH/oh-my-zsh.sh
+export EDITOR='vim'
 
 # User configuration
 
@@ -77,13 +91,6 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -99,3 +106,15 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+
+#FZF
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='
+--color fg:15,fg+:15,bg+:239,hl+:108
+--color info:2,prompt:109,spinner:2,pointer:168,marker:168
+'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
