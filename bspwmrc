@@ -1,0 +1,55 @@
+#!/bin/sh
+
+sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config normal_border_color "#282729"
+bspc config focused_border_color "#4D4D4D"
+bspc config presel_feedback_color "#282729"
+
+bspc config border_width         2
+bspc config window_gap          10
+bspc config top_padding         27.99
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config single_monocle       true
+bspc config click_to_focus       true
+bspc config initial_polarity second_child
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a rofi focus=on
+bspc rule -a Screenkey manage=off
+
+#Windows key
+bspc config super mod4
+
+#Launch Polybar
+$HOME/.config/polybar/launch.sh
+
+#Set touchpad options
+xinput set-button-map 13 1 1 3 #Middle click
+xinput set-prop 13 277 1 #Tap click
+xinput set-prop 13 297 0 #Move mouse while typing
+setxkbmap -option caps:escape
+
+#Set cursor
+xsetroot -cursor_name left_ptr
+
+#Check before running
+check_process() {
+  echo "$ts: checking $1"
+  [ "$1" = "" ]  && return 0
+  [ `pgrep -n $1` ] && return 1 || return 0
+}
+
+check_process "compton"
+[ $? -eq 0 ] && compton -GC --backend glx --paint-on-overlay --vsync opengl-swc --glx-no-stencil
+
+check_process "dropbox"
+[ $? -eq 0 ] && dropbox
+
+feh --bg-scale retroarch.jpg
