@@ -158,3 +158,8 @@ super + shift + p
 super + r
         dbus-launch gnome-terminal -- ranger
 
+super + u
+        /usr/local/bin/dmenu_proxy_switcher
+
+super + shift + u
+        st ncmpcpp
