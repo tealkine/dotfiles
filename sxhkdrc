@@ -4,13 +4,14 @@
 
 # terminal emulator
 super + Return
-	dbus-launch gnome-terminal
+	alacritty
 
 # program launcher
 super + @space
 	rofi -show drun
 
-super + e
+#Same bind as windows
+super + period
         rofi -modi 'emoji:/usr/local/bin/rofimoji' -show emoji
 
 super + w
@@ -65,8 +66,8 @@ super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
 super + {_,shift + }c
@@ -156,10 +157,16 @@ super + shift + p
         /home/ffc/.config/polybar/launch.sh
 
 super + r
-        dbus-launch gnome-terminal -- ranger
+        alacritty -e ranger
 
 super + u
         /usr/local/bin/dmenu_proxy_switcher
 
 super + shift + u
         st ncmpcpp
+
+ctrl + q
+        /bin/false
+
+super + n
+        rofi-pass

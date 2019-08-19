@@ -1,5 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=/home/ffc/.local/bin:$PATH
+export PATH=/home/ffc/go/bin/:$PATH
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+export CLEAN_HOME=/home/ffc/Projects/clean/clean_install
+export PATH=$PATH:$CLEAN_HOME/bin
+export CDPATH=.:/home/ffc/Projects
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/ffc/.oh-my-zsh
@@ -8,6 +15,12 @@ export ZSH=/home/ffc/.oh-my-zsh
 export QUOTING_STYLE=literal
 
 source ~/Dropbox/Aliases/bash_aliases
+
+#THANKS DOTNET REE
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+#THANKS JAVA REEE
+export JAVA_HOME="/usr/lib/jvm/java-10-openjdk/"
 
 #no beeps
 setopt nolist_beep
@@ -109,7 +122,7 @@ export EDITOR='vim'
 #
 
 #FZF
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='
@@ -117,7 +130,10 @@ export FZF_DEFAULT_OPTS='
 --color info:2,prompt:109,spinner:2,pointer:168,marker:168
 '
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+eval "$(direnv hook zsh)"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

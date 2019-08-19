@@ -4,9 +4,9 @@ sxhkd &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
-bspc config normal_border_color "#282729"
-bspc config focused_border_color "#4D4D4D"
-bspc config presel_feedback_color "#282729"
+bspc config normal_border_color "#666666"
+bspc config focused_border_color "#888888"
+bspc config presel_feedback_color "#55555A"
 
 bspc config border_width         2
 bspc config window_gap          10
@@ -29,9 +29,11 @@ bspc config super mod4
 $HOME/.config/polybar/launch.sh
 
 #Set touchpad options
-xinput set-button-map 13 1 1 3 #Middle click
-xinput set-prop 13 278 1 #Tap click
-xinput set-prop 13 288 0 #Move mouse while typing
+xinput set-button-map "ETPS/2 Elantech Touchpad" 1 1 3
+xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Disable While Typing Enabled" 0
+xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 0
+
 setxkbmap -option caps:escape
 
 #Set cursor
@@ -44,5 +46,11 @@ check_process() {
   [ `pgrep -n $1` ] && return 1 || return 0
 }
 
+feh --randomize --bg-fill "$HOME/Pictures/Wallpaper/"
+
 check_process "compton"
-[ $? -eq 0 ] && compton -GC --backend glx --paint-on-overlay --vsync opengl-swc --glx-no-stencil
+[ $? -eq 0 ] && compton --backend=glx --vsync --glx-no-stencil
+
+check_process "redshift"
+[ $? -eq 0 ] && compton --backend=glx --vsync --glx-no-stencil
+

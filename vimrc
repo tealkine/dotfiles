@@ -25,7 +25,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'scrooloose/nerdtree'
 
     "fzf
-        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+        "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
 
     "Code Completion
@@ -47,19 +47,14 @@ call plug#begin('~/.vim/plugged')
         Plug 'othree/yajs.vim'
         Plug 'rust-lang/rust.vim'
         Plug 'octol/vim-cpp-enhanced-highlight'
+        Plug 'mephux/bro.vim'
+        Plug 'kongo2002/fsharp-vim'
 
     "Bracket Completion
         "Plug 'Raimondi/delimitMate'
 
-    "Markdown Editing
-        Plug 'junegunn/goyo.vim'
-        Plug 'amix/vim-zenroom2'
-
     "Themes
-        Plug 'joshdick/onedark.vim'
         Plug 'dracula/vim'
-        Plug 'carakan/new-railscasts-theme'
-        Plug 'rakr/vim-two-firewatch'
 
     "Tpope is the man!
         Plug 'tpope/vim-speeddating'
@@ -74,12 +69,12 @@ call plug#begin('~/.vim/plugged')
         Plug 'godlygeek/tabular'
         Plug 'christoomey/vim-tmux-navigator'
         Plug 'morhetz/gruvbox'
-        Plug 'kien/rainbow_parentheses.vim'
+        Plug 'dbeniamine/cheat.sh-vim'
 
 call plug#end()
 
 " Rebind <Leader> key
-    let mapleader = ","
+    let mapleader      = ","
     let maplocalleader = ","
 
 "Commands
@@ -99,7 +94,7 @@ color wal
 "Shortcuts
 
 "VIMRC edit
-    nnoremap <leader>vrc :edit /root/.vimrc<CR>
+    nnoremap <leader>vrc :edit ~/.vimrc<CR>
 
 "Compiling
 augroup compile
@@ -110,6 +105,7 @@ augroup compile
     autocmd FileType cpp silent! nnoremap <leader>lt :silent !clear<CR>:!make test<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType cs silent! nnoremap <leader>ll :silent !clear<CR>:silent !mcs *.cs -out:out.exe<CR>:silent !read<CR>:silent !./out.exe<CR>:silent !read<CR>:silent !rm out.exe<CR>:silent !color<CR>:redraw!<CR>
     autocmd FileType python silent! nnoremap <leader>ll :silent !clear<CR>:!python3 %<CR>:silent !read<CR>:redraw!<CR>
+    autocmd FileType go silent! nnoremap <leader>lt :silent !clear<CR>:!go test<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType ruby silent! nnoremap <leader>ll :silent !clear<CR>:!ruby %<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType rust silent! nnoremap <leader>ll :silent !clear<CR>:!cargo run<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType rust silent! nnoremap <leader>lt :silent !clear<CR>:!cargo test<CR>:silent !read<CR>:redraw!<CR>
@@ -240,6 +236,7 @@ let g:vimtex_compiler_latexmk = {
     \   '-file-line-error',
     \   '-synctex=1',
     \   '-interaction=nonstopmode',
+    \   '-shell-escape',
     \ ],
 \}
 
@@ -409,6 +406,13 @@ hi Comment cterm=italic
 "exec 'set colorcolumn=' . join(range(2,200,3), ',')
 
 
+command ExercismSubmit !exercism submit %:t
+
+"if $SSH_CONNECTION
+"    colorscheme dracula
+"endif
 
 
 "End Of File
+
+"colorscheme dracula
