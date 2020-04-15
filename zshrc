@@ -3,6 +3,7 @@
 export PATH=/home/ffc/.local/bin:$PATH
 export PATH=/home/ffc/go/bin/:$PATH
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export TERM=xterm
 
 export CLEAN_HOME=/home/ffc/Projects/clean/clean_install
 export PATH=$PATH:$CLEAN_HOME/bin

@@ -113,7 +113,6 @@ augroup compile
     autocmd FileType rust silent! nnoremap <leader>lit :silent !clear<CR>:!cargo test -- --ignored<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType java silent! nnoremap <leader>ll :silent !clear<CR>:!gradle run<CR>:silent !read<CR>:redraw!<CR>
     autocmd FileType java silent! nnoremap <leader>lt :silent !clear<CR>:!gradle test<CR>:silent !read<CR>:redraw!<CR>
-    autocmd BufRead *.b silent! nnoremap <leader>ll :silent !clear<CR>:silent !bfi %<CR>:silent !read<CR>:redraw!<CR>
 augroup END
 
 " FZF keybindings
@@ -142,10 +141,10 @@ augroup END
     noremap <leader>e :bw<CR>
 
 "Learn to stop arrow keys
-    nnoremap <Left> :echoe "Use h"<CR>
-    nnoremap <Right> :echoe "Use l"<CR>
-    nnoremap <Up> :echoe "Use k"<CR>
-    nnoremap <Down> :echoe "Use j"<CR>
+"    nnoremap <Left> :echoe "Use h"<CR>
+"    nnoremap <Right> :echoe "Use l"<CR>
+"    nnoremap <Up> :echoe "Use k"<CR>
+"    nnoremap <Down> :echoe "Use j"<CR>
 
 
 "Goyo for miminalist work
@@ -216,7 +215,7 @@ let g:ycm_rust_src_path = '$HOME/Sources/rust/src'
 
 let g:ale_completion_enabled = 0
 
-
+let g:ale_python_pylint_options = '--extension-pkg-whitelist=pwn'
 
 "Vim latex
 "let g:Tex_MathMenus = 0

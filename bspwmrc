@@ -52,5 +52,7 @@ check_process "compton"
 [ $? -eq 0 ] && compton --backend=glx --vsync --glx-no-stencil
 
 check_process "redshift"
-[ $? -eq 0 ] && compton --backend=glx --vsync --glx-no-stencil
+[ $? -eq 0 ] && redshift --backend=glx --vsync --glx-no-stencil
 
+check_process "xss-lock"
+[ $? -eq 0 ] && xss-lock --transfer-sleep-lock -- /usr/bin/betterlockscreen --lock

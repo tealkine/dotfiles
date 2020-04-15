@@ -61,7 +61,7 @@ font-0 = "xos4 Terminus:size=16;2"
 ;font-2 = "Font Awesome 5 Free:style=Regular:size=10"
 
 modules-left = bspwm
-modules-right = filesystem xbacklight volume github pkgupdates-available memory cpu wlan eth battery date
+modules-right = filesystem xbacklight volume pkgupdates-available memory cpu wlan eth battery date
 
 tray-position = right
 tray-padding = 2
@@ -250,7 +250,7 @@ format-underline = ${colors.underline-3}
 label = %date% %time%
 
 [module/volume]
-type = internal/volume
+type = internal/alsa
 
 format-volume = <label-volume> <bar-volume>
 label-volume = VOL
@@ -295,24 +295,24 @@ format-full-prefix = "Full "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-[module/github]
-type = internal/github
-
-format = <label>
-
-format-prefix = "GIT "
-format-prefix-foreground = ${colors.foreground-alt}
-
-format-underline = ${colors.underline-5}
-
-label = %notifications%
-
-;Notification Token
-token = ${file:$HOME/.config/polybar/git-token}
-
-empty-notifications = true
-
-interval = 90
+;[module/github]
+;type = internal/github
+;
+;format = <label>
+;
+;format-prefix = "GIT "
+;format-prefix-foreground = ${colors.foreground-alt}
+;
+;format-underline = ${colors.underline-5}
+;
+;label = %notifications%
+;
+;;Notification Token
+;token = ${file:$HOME/.config/polybar/git-token}
+;
+;empty-notifications = true
+;
+;interval = 90
 
 [module/pkgupdates-available]
 type = custom/script
