@@ -212,16 +212,27 @@ nmap <leader>= 1z=
 "You Complete me fix
 let g:ycm_filetype_blacklist = { 'config': 1, 'binary': 1, 'vim': 1 }
 let g:ycm_rust_src_path = '$HOME/Sources/rust/src'
+let g:ycm_language_server =
+\ [
+\   {
+\     'name': 'rust',
+\     'cmdline': ['rust-analyzer'],
+\     'filetypes': ['rust'],
+\     'project_root_files': ['Cargo.toml']
+\   }
+\ ]
 
 let g:ale_completion_enabled = 0
 
 let g:ale_python_pylint_options = '--extension-pkg-whitelist=pwn'
+let g:ale_linters = {'rust': ['analyzer']}
 
 "Vim latex
 "let g:Tex_MathMenus = 0
 "let g:Tex_DefaultTargetFormat = "pdf"
 "let g:Tex_MultipleCompileFormats = "pdf,bib,pdf"
 
+let g:tex_flavor = "pdflatex"
 let g:vimtex_compiler_latexmk = {
     \ 'backend' : 'jobs',
     \ 'background' : 1,

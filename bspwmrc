@@ -48,11 +48,8 @@ check_process() {
 
 feh --randomize --bg-fill "$HOME/Pictures/Wallpaper/"
 
-check_process "compton"
-[ $? -eq 0 ] && compton --backend=glx --vsync --glx-no-stencil
+check_process "picom"
+[ $? -eq 0 ] && picom
 
 check_process "redshift"
 [ $? -eq 0 ] && redshift --backend=glx --vsync --glx-no-stencil
-
-check_process "xss-lock"
-[ $? -eq 0 ] && xss-lock --transfer-sleep-lock -- /usr/bin/betterlockscreen --lock
